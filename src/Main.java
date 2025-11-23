@@ -20,7 +20,7 @@ public class Main {
                 System.out.println("Finalizando...");
 
             }else if (opci>0 && opci<9){
-                System.out.println("Cantidad de dinero a convertir:");
+                System.out.print("Cantidad de dinero a convertir:");
                 dinero = Math.abs (Double.valueOf(teclado.next()
                         .trim().replace(',','.')));
 
@@ -37,7 +37,7 @@ public class Main {
 
                 switch (opci){
                     case 1:
-                        System.out.println("$"+dinero+" [USD] equivalen a $ "+resultado+" [ARS].");
+                        System.out.println("$"+dinero+" [USD] equivalen a $"+resultado+" [ARS].");
                         break;
                     case 2:
                         System.out.println("$"+dinero+" [ARS] equivalen a $"+resultado+" [USD].");
@@ -48,7 +48,6 @@ public class Main {
                         break;
                     case 4:
                         System.out.println("$"+dinero+" [BRL] equivalen a $"+resultado+" [USD].");
-
                         break;
 
                     case 5:
