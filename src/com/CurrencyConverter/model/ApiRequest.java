@@ -13,32 +13,34 @@ import java.util.HashMap;
 import java.util.Properties;
 
 public class ApiRequest {
-    private static Properties prop;
-    private static String apiKey;
-    private static HttpClient client;
-    private static Gson gson;
+    private Properties prop = this.getProperties();
+    private final String API_KEY = prop.getProperty("API_KEY") ;;
+    private HttpClient client;
+    private Gson gson;
 
     public ApiRequest(){
-        prop = new Properties();
         client = HttpClient.newHttpClient();
         gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
-    /************************************************************/
-    public Conversion conversion(String currency, String otherCurrency, double amount) {
-        Conversion conversion;
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm:ss");
-
+    private Properties getProperties(){
+        Properties prop = new Properties();
         try {
             prop.load(this.getClass().getClassLoader().getResourceAsStream("config.properties"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.getStackTrace();
         }
+        return prop;
+    }
+    /************************************************************/
 
-        apiKey = prop.getProperty("API_KEY");
-        URI adress = URI.create("https://v6.exchangerate-api.com/v6/"+apiKey+"/pair/"+currency+"/"+otherCurrency+"/"+amount);
+    public Conversion conversion(String currency, String otherCurrency, double amount) {
+        Conversion conversion;
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatTime = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm:ss");
+
+        URI adress = URI.create("https://v6.exchangerate-api.com/v6/"+API_KEY+"/pair/"+currency+"/"+otherCurrency+"/"+amount);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(adress)
                 .GET()
@@ -62,15 +64,7 @@ public class ApiRequest {
 
 
     public double getExchangeRate(String currency, String otherCurrency) {
-        try {
-            prop.load(this.getClass().getClassLoader().getResourceAsStream("config.properties"));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.getStackTrace();
-        }
-        apiKey = prop.getProperty("API_KEY");
-
-        URI adress = URI.create("https://v6.exchangerate-api.com/v6/"+apiKey+"/pair/"+currency+"/"+otherCurrency);
+        URI adress = URI.create("https://v6.exchangerate-api.com/v6/"+API_KEY+"/pair/"+currency+"/"+otherCurrency);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(adress)
                 .GET()
@@ -89,18 +83,8 @@ public class ApiRequest {
     }
 
 
-
     public void supportedCodes(){
-        try {
-            prop.load(this.getClass().getClassLoader().getResourceAsStream("config.properties"));
-
-        }catch (IOException e){
-            System.out.println("ERROR: "+e.getMessage());
-            e.getStackTrace();
-        }
-
-        apiKey = prop.getProperty("API_KEY");
-        URI adress = URI.create("https://v6.exchangerate-api.com/v6/"+apiKey+"/codes");
+        URI adress = URI.create("https://v6.exchangerate-api.com/v6/"+API_KEY+"/codes");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(adress)
                 .GET()
