@@ -1,10 +1,10 @@
-package com.CurrencyConvertor.model;
+package com.CurrencyConverter.model;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public record SupportedCodes(List<List<String>> supported_codes) {
+public record CurrencyCodesRecord(List<List<String>> supported_codes) {
 
     public Map<String, String> asMap() {
         Map<String, String> map = new HashMap<>();

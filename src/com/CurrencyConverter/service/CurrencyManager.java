@@ -1,8 +1,8 @@
-package com.CurrencyConvertor.service;
+package com.CurrencyConverter.service;
 
-import com.CurrencyConvertor.model.ApiRequest;
-import com.CurrencyConvertor.model.SupportedCodes;
-import com.CurrencyConvertor.util.ReaderWriter;
+import com.CurrencyConverter.model.ExchangeRateApiClient;
+import com.CurrencyConverter.model.CurrencyCodesRecord;
+import com.CurrencyConverter.util.FileManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -20,7 +20,7 @@ public class CurrencyManager {
     private static final String PATH_CONVERSIONS = System.getProperty("user.dir")+"\\conversions.txt";
 
     public void getStarted(){
-        var request = new ApiRequest();
+        var request = new ExchangeRateApiClient();
         try {
             File file = new File(PATH_SUPPORTED_CODES);
             FileReader reader = new FileReader(file);
@@ -40,7 +40,7 @@ public class CurrencyManager {
             request.supportedCurrencyCodes();
         }
 
-        supportedCurrencyCodes = this.getSupportedCurrencyCodesMap();
+        supportedCurrencyCodes = this.SupportedCurrencyCodesMap();
     }
 
     public Stack<Conversion> getConversions() {
@@ -51,11 +51,11 @@ public class CurrencyManager {
         return supportedCurrencyCodes;
     }
 
-    public Map<String,String> getSupportedCurrencyCodesMap() {
+    public Map<String,String> SupportedCurrencyCodesMap() {
         File supportedCodesJSON = new File(PATH_SUPPORTED_CODES);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String supportedCodes = ReaderWriter.readFile(supportedCodesJSON);
-        SupportedCodes currencies = gson.fromJson(supportedCodes, SupportedCodes.class);
+        String supportedCodes = FileManager.readFile(supportedCodesJSON);
+        CurrencyCodesRecord currencies = gson.fromJson(supportedCodes, CurrencyCodesRecord.class);
         this.supportedCurrencyCodes = currencies.asMap();
         return this.supportedCurrencyCodes;
     }
@@ -72,7 +72,7 @@ public class CurrencyManager {
 
     public void showConversionsFile(){
         File conversions = new File(PATH_CONVERSIONS);
-        String recoveredFile = ReaderWriter.readFile(conversions);
+        String recoveredFile = FileManager.readFile(conversions);
         if(recoveredFile.isEmpty()){
             System.out.println("Try doing some conversions first...");
         }
@@ -83,10 +83,10 @@ public class CurrencyManager {
         this.conversions.addFirst(conversion);
     }
 
-    public void saveConversionMade(){
+    public void saveConversion(){
         File conversionsMade = new File(PATH_CONVERSIONS);
-        String recoveredFile = ReaderWriter.readFile(conversionsMade);
-        ReaderWriter.writeConversionsFile(recoveredFile, this.conversions);
+        String recoveredFile = FileManager.readFile(conversionsMade);
+        FileManager.writeConversionsFile(recoveredFile, this.conversions);
     }
 
 }

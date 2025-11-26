@@ -1,7 +1,7 @@
-package com.CurrencyConvertor.service;
-import com.CurrencyConvertor.model.ApiRequest;
-import com.CurrencyConvertor.model.Currency;
-import com.CurrencyConvertor.util.InputHandler;
+package com.CurrencyConverter.service;
+import com.CurrencyConverter.model.ExchangeRateApiClient;
+import com.CurrencyConverter.model.Currency;
+import com.CurrencyConverter.util.InputHandler;
 
 public class Menu {
     private static CurrencyManager manager;
@@ -30,7 +30,7 @@ public class Menu {
                     break;
                 case 3:
                     manager.showSupportedCurrencies();
-                    System.out.println(manager.getSupportedCurrencyCodesMap().size());
+                    System.out.println(manager.SupportedCurrencyCodesMap().size());
                 break;
                 case 4:
                     System.out.println("""
@@ -57,7 +57,7 @@ public class Menu {
     }
 
     private void exchangeCurrencies(){
-        ApiRequest apiRequest = new ApiRequest();
+        ExchangeRateApiClient apiRequest = new ExchangeRateApiClient();
         Conversion conversion;
         System.out.println("\n******************************************\n");
         System.out.print("""
@@ -83,14 +83,14 @@ public class Menu {
         Currency currencyB = new Currency(currencyCodeB, manager.getSupportedCurrencyCodes().get(currencyCodeB));
 
         System.out.printf("Amount of money that you want to convert from [%s] to [%s]",currencyA.getCode(),currencyB.getCode());
-        amountMoney = handler.readMoney();
+        amountMoney = handler.readAmount();
 
         conversion = apiRequest.conversion(currencyA, currencyB, amountMoney);
         manager.addConversion(conversion);
 
         System.out.println("Result: ");
         System.out.print(conversion);
-        manager.saveConversionMade();
+        manager.saveConversion();
         System.out.println();
         mainMenu();
     }

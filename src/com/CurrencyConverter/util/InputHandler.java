@@ -1,10 +1,10 @@
-package com.CurrencyConvertor.util;
+package com.CurrencyConverter.util;
 
-import com.CurrencyConvertor.service.CurrencyManager;
+import com.CurrencyConverter.service.CurrencyManager;
 import java.util.Scanner;
 
 public class InputHandler {
-    private static final Scanner kb = new Scanner(System.in);
+    private static final Scanner keyboard = new Scanner(System.in);
 
     private static final int MIN_OPTION = 1;
     private static final int MAX_OPTION = 4;
@@ -12,7 +12,7 @@ public class InputHandler {
     public int readMainOption(){
         System.out.print(":");
         try {
-            String input = kb.nextLine().trim();
+            String input = keyboard.nextLine().trim();
             int temp = Integer.parseInt(input);
             if(temp>=MIN_OPTION && temp<=MAX_OPTION){
                 return temp;
@@ -30,7 +30,7 @@ public class InputHandler {
 
     public String readCurrency(CurrencyManager manager){
         System.out.print(":");
-        String input = kb.nextLine().trim().toUpperCase();
+        String input = keyboard.nextLine().trim().toUpperCase();
         if(input.equals("1") || (input.length()==3 && input.chars().allMatch(Character::isLetter) && manager.getSupportedCurrencyCodes().get(input)!=null)){
             return input;
         }else{
@@ -39,14 +39,14 @@ public class InputHandler {
         }
     }
 
-    public double readMoney(){
+    public double readAmount(){
         System.out.print(":");
-        var input = kb.nextLine().replace(',','.').trim();
+        var input = keyboard.nextLine().replace(',','.').trim();
         double money = 0;
         try {
             if(input.chars().anyMatch(Character::isLetter) || input.chars().anyMatch(Character::isAlphabetic)){
                 System.out.println("Type a number!");
-                return readMoney();
+                return readAmount();
             }
             money = Double.parseDouble(input);
 

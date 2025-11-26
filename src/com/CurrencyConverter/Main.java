@@ -1,6 +1,6 @@
-package com.CurrencyConvertor;
+package com.CurrencyConverter;
 
-import com.CurrencyConvertor.service.Menu;
+import com.CurrencyConverter.service.Menu;
 
 public class Main {
     public static void main(String[] args){

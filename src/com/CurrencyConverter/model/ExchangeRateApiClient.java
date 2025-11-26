@@ -1,6 +1,6 @@
-package com.CurrencyConvertor.model;
+package com.CurrencyConverter.model;
 
-import com.CurrencyConvertor.service.Conversion;
+import com.CurrencyConverter.service.Conversion;
 import com.google.gson.*;
 import java.io.*;
 import java.net.URI;
@@ -9,16 +9,15 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Properties;
 
-public class ApiRequest {
+public class ExchangeRateApiClient {
     private final Properties prop = this.getProperties();
     private final String API_KEY = prop.getProperty("API_KEY") ;
     private final HttpClient client;
     private final Gson gson;
 
-    public ApiRequest(){
+    public ExchangeRateApiClient(){
         client = HttpClient.newHttpClient();
         gson = new GsonBuilder().setPrettyPrinting().create();
     }
@@ -55,27 +54,6 @@ public class ApiRequest {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Error: "+ e.getMessage());
         }
-    }
-
-    public HashMap<String,String> getSupportedCurrencyCodesAsMap() {
-        int bina;
-        String json = "";
-        try {
-            //ReaderWriter.read();
-            File file = new File(System.getProperty("user.dir") + "\\supportedCurrencyCodes.json");
-            FileReader reader = new FileReader(file);
-            bina = reader.read();
-            while (bina != -1) {
-                json = json.concat("" + (char) bina);
-                bina = reader.read();
-            }
-            reader.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.getStackTrace();
-        }
-        SupportedCodes currencies = gson.fromJson(json, SupportedCodes.class);
-        return (HashMap<String, String>) currencies.asMap();
     }
 
 

@@ -1,4 +1,4 @@
-package com.CurrencyConvertor.model;
+package com.CurrencyConverter.model;
 
 public class Currency {
     private final String code;

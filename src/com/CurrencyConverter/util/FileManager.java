@@ -1,16 +1,16 @@
-package com.CurrencyConvertor.util;
+package com.CurrencyConverter.util;
 
-import com.CurrencyConvertor.service.Conversion;
+import com.CurrencyConverter.service.Conversion;
 
 import java.io.*;
 import java.util.Stack;
 
-public class ReaderWriter {
+public class FileManager {
 
-    public static String readFile(File conversionsMade){
+    public static String readFile(File file){
         String recovered = "";
         try {
-            FileReader reader = new FileReader(conversionsMade);
+            FileReader reader = new FileReader(file);
             int bina = reader.read();
 
             while (bina != -1) {
