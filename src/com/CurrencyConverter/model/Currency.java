@@ -1,8 +1,8 @@
 package com.CurrencyConverter.model;
 
 public class Currency {
-    private String code;
-    private String name;
+    private final String code;
+    private final String name;
 
     public Currency(String code, String name) {
         this.code = code;

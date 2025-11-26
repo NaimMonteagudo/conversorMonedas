@@ -3,21 +3,11 @@ package com.CurrencyConverter.service;
 import com.CurrencyConverter.model.Currency;
 
 public class Conversion {
-    private Currency currencyA;
-    private double amountMoney;
-    private Currency currencyB;
-    private double conversionResult;
-    private String conversionDate;
-
-    public Conversion(){}
-
-    public Conversion(Conversion c){
-        this.currencyA = c.currencyA;
-        this.amountMoney = c.amountMoney;
-        this.currencyB = c.currencyB;
-        this.conversionResult = c.conversionResult;
-        this.conversionDate = c.conversionDate;
-    }
+    private final Currency currencyA;
+    private final double amountMoney;
+    private final Currency currencyB;
+    private final double conversionResult;
+    private final String conversionDate;
 
     public Conversion(Currency currencyA, double amountMoney, Currency currencyB, double conversionResult, String conversionDate){
         this.currencyA = currencyA;
@@ -25,21 +15,6 @@ public class Conversion {
         this.currencyB = currencyB;
         this.conversionResult = conversionResult;
         this.conversionDate = conversionDate;
-    }
-    public Currency getCurrencyA() {
-        return currencyA;
-    }
-
-    public Currency getCurrencyB() {
-        return currencyB;
-    }
-
-    public double getConversionResult() {
-        return conversionResult;
-    }
-
-    public String getConversionDate() {
-        return conversionDate;
     }
 
     @Override

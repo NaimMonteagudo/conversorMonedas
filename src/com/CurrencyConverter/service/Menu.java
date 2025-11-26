@@ -32,8 +32,10 @@ public class Menu {
                     manager.showSupportedCurrencies();
                     break;
                 case 4:
-                    System.out.println("\nLeaving the program..\n" +
-                            "Thanks :)");
+                    System.out.println("""
+                            
+                            Leaving the program..
+                            Thanks :)""");
                 default:
                     break;
             }
